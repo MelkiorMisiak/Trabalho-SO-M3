@@ -8,8 +8,18 @@ project(so-m3 VERSION 1.0 LANGUAGES C ASM)
 # file(GLOB SOURCES "src/*.c")
 
 add_executable(main 
+  src/context.S
   src/main.c
-  src/lib.c
+  src/memory.c
+  src/scheduler.c
+  src/string.c 
+  src/syscall.c
+  src/task.c
+  src/timer.c
+  src/trap.c
+  src/uart.c
+  src/user.S
+
 )
 
 target_include_directories(main
