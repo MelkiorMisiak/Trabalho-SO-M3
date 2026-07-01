@@ -12,12 +12,12 @@ extern void trap_entry(void);
 
 void task1(void)
 {
-	while(1)
+	while(1) 
 		uart_print("Task 1 running\n");
 }
 void task2(void)
 {
-	while(1)
+	while(1) 
 		uart_print("Task 2 running\n");
 }
 

@@ -6,6 +6,7 @@
 void trap_handler(uint64_t *frame)
 {
 	uint64_t scause;
+
 	asm volatile("csrr %0, scause" : "=r"(scause));
 
 	if((scause >> 63) && (scause & 0x3F) == 5) {

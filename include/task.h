@@ -11,11 +11,11 @@ struct TCB
 
 	void (*entry)(void);
 
-	int priority;
-	int state;
-
 	uint8_t *stack;
 	uint64_t stack_size;
+
+	int priority;
+	int state;
 
 };
 
