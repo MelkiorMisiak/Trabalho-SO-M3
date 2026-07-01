@@ -41,25 +41,37 @@ void scheduler_start(void)
 	if (task_count == 0)
 		return;
 
+	current = 0;
 	tasks[0].entry();
 }
 
-void scheduler_from_trap(uint64_t *frame)
+void schedule_from_trap(uint64_t *frame)
 {
+	if (task_count < 2)
+		return;
+
 	int prev = current;
 	int next = current_algo();
 
-	for(uint32_t i = 0; i < 32; i++)
+	if (prev == next)
+		return;
+
+	for(uint32_t i = 0; i < 31; i++)
 		tasks[prev].regs[i] = frame[i];
 	
-	asm volatile("csrr %0, sepc" :: "r"(tasks[prev].sepc));
+	asm volatile("csrr %0, sepc" : "=r"(tasks[prev].sepc));
 
         current = next;
 
-	for(uint32_t i = 0; i < 32; i++)
+	for(uint32_t i = 0; i < 31; i++)
 		frame[i] = tasks[next].regs[i];
 
 	asm volatile("csrw sepc, %0" :: "r"(tasks[next].sepc));
+}
+
+int scheduler_current_task(void)
+{
+	return current;
 }
 
 

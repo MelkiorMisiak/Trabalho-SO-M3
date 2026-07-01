@@ -6,20 +6,14 @@
 void trap_handler(uint64_t *frame)
 {
 	uint64_t scause;
-        /* TODO:
-         * Ler CSR scause.
-         */
-        /* TODO:
-        * Verificar se
-        interrupo.
-        */
-        /* TODO:
-         * Identificar Supervisor Timer Interrupt.
-         */
-        /* TODO:
-         * Chamar timer_next().
-         * Chamar schedule_from_trap(frame).
-         */
+	asm volatile("csrr %0, scause" : "=r"(scause));
+
+	if((scause >> 63) && (scause & 0x3F) == 5) {
+		timer_next();
+		schedule_from_trap(frame);
+		return;
+	}
+
 	uart_print("Unhandled trap\n");
 
 	while (1)
