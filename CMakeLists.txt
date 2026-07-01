@@ -15,17 +15,17 @@ set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} ${RISCV_FLAGS} -x assembler-with-cpp")
 # file(GLOB SOURCES "src/*.c")
 
 add_library(main OBJECT
-  src/context.S
-  src/main.c
-  src/memory.c
-  src/scheduler.c
-  src/string.c 
-  src/syscall.c
-  src/task.c
-  src/timer.c
-  src/trap.c
-  src/uart.c
-  src/user.S
+  kernel/context.S
+  kernel/main.c
+  kernel/memory.c
+  kernel/scheduler.c
+  kernel/string.c 
+  kernel/syscall.c
+  kernel/task.c
+  kernel/timer.c
+  kernel/trap.c
+  kernel/uart.c
+  kernel/user.S
 
 )
 

@@ -14,14 +14,14 @@ OBJS = build/start.o build/trap_entry.o build/context.o \
 all:
 	$(CROSS)gcc $(CFLAGS) -c boot/start.S -o build/start.o
 	$(CROSS)gcc $(CFLAGS) -c boot/trap_entry.S -o build/trap_entry.o
-	$(CROSS)gcc $(CFLAGS) -c src/context.S -o build/context.o
+	$(CROSS)gcc $(CFLAGS) -c kernel/context.S -o build/context.o
 
-	$(CROSS)gcc $(CFLAGS) -c src/main.c -o build/main.o
-	$(CROSS)gcc $(CFLAGS) -c src/task.c -o build/task.o
-	$(CROSS)gcc $(CFLAGS) -c src/scheduler.c -o build/scheduler.o
-	$(CROSS)gcc $(CFLAGS) -c src/uart.c -o build/uart.o
-	$(CROSS)gcc $(CFLAGS) -c src/string.c -o build/string.o
-	$(CROSS)gcc $(CFLAGS) -c src/memory.c -o build/memory.o
+	$(CROSS)gcc $(CFLAGS) -c kernel/main.c -o build/main.o
+	$(CROSS)gcc $(CFLAGS) -c kernel/task.c -o build/task.o
+	$(CROSS)gcc $(CFLAGS) -c kernel/scheduler.c -o build/scheduler.o
+	$(CROSS)gcc $(CFLAGS) -c kernel/uart.c -o build/uart.o
+	$(CROSS)gcc $(CFLAGS) -c kernel/string.c -o build/string.o
+	$(CROSS)gcc $(CFLAGS) -c kernel/memory.c -o build/memory.o
 
 	$(CROSS)ld -T linker.ld $(OBJS) -o kernel.elf
 
