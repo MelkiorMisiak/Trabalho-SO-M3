@@ -30,5 +30,6 @@ void xTaskCreate(void (*task)(void), uint32_t stack_size, int priority)
 
 	t->regs[0] = (uint64_t)task; //ra
 	t->regs[1] = (uint64_t)sp; //sp
+	t->sepc = (uint64_t) task;
 }
 

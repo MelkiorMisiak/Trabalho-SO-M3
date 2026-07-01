@@ -39,3 +39,7 @@ run:
 		-nographic \
 		-bios default \
 		-kernel kernel.elf
+
+clean:
+	rm -rf build/*
+	make cmake -B

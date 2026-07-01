@@ -5,6 +5,7 @@
 
 void trap_handler(uint64_t *frame)
 {
+	uart_print("\n === Entering Trap handler === \n");	
 	uint64_t scause;
 
 	asm volatile("csrr %0, scause" : "=r"(scause));
@@ -12,10 +13,11 @@ void trap_handler(uint64_t *frame)
 	if((scause >> 63) && (scause & 0x3F) == 5) {
 		timer_next();
 		schedule_from_trap(frame);
+		uart_print("\nFAHHHHHHHHHHHHH\n");
 		return;
 	}
 
-	uart_print("Unhandled trap\n");
+	uart_print("\nUnhandled trap\n");
 
 	while (1)
 		;
