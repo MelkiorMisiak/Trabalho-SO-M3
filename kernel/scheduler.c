@@ -44,3 +44,23 @@ void scheduler_start(void)
 	tasks[0].entry();
 }
 
+void scheduler_from_trap(uint64_t *frame)
+{
+	int prev = current;
+	int next = current_algo();
+        /* TODO:
+         * Copiar frame -> tasks[prev].regs
+         */
+        /* TODO:
+         * Salvar sepc da task atual.
+         */
+        current = next;
+        /* TODO:
+         * Copiar tasks[next].regs -> frame
+         */
+        /* TODO:
+         * Restaurar sepc da prxima task.
+         */
+}
+
+

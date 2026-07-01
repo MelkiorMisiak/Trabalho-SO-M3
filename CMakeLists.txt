@@ -16,6 +16,7 @@ set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} ${RISCV_FLAGS} -x assembler-with-cpp")
 
 add_library(main OBJECT
   kernel/context.S
+  kernel/fs.c
   kernel/main.c
   kernel/memory.c
   kernel/scheduler.c
@@ -26,7 +27,8 @@ add_library(main OBJECT
   kernel/trap.c
   kernel/uart.c
   kernel/user.S
-
+  boot/start.S
+  boot/trap_entry.S
 )
 
 target_include_directories(main
