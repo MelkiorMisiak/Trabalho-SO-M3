@@ -48,19 +48,18 @@ void scheduler_from_trap(uint64_t *frame)
 {
 	int prev = current;
 	int next = current_algo();
-        /* TODO:
-         * Copiar frame -> tasks[prev].regs
-         */
-        /* TODO:
-         * Salvar sepc da task atual.
-         */
+
+	for(uint32_t i = 0; i < 32; i++)
+		tasks[prev].regs[i] = frame[i];
+	
+	asm volatile("csrr %0, sepc" :: "r"(tasks[prev].sepc));
+
         current = next;
-        /* TODO:
-         * Copiar tasks[next].regs -> frame
-         */
-        /* TODO:
-         * Restaurar sepc da prxima task.
-         */
+
+	for(uint32_t i = 0; i < 32; i++)
+		frame[i] = tasks[next].regs[i];
+
+	asm volatile("csrw sepc, %0" :: "r"(tasks[next].sepc));
 }
 
 

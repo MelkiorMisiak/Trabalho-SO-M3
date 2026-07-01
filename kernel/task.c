@@ -13,9 +13,16 @@ void xTaskCreate(void (*task)(void), uint32_t stack_size, int priority)
 	if (stack_size == 0)
 		stack_size = DEFAULT_STACK_SIZE;
 
-	struct TCB *t = &tasks[task_count];
+	struct TCB *t = &tasks[task_count++];
+
+	t->entry = task;
+	t->priority = (uint64_t)priority;
+	t->state = 0;
+	t->stack_size = stack_size;
 
 	t->stack = (uint8_t*)kmalloc(stack_size);
+	if(!t->stack)
+		return;
 
 	uint64_t *sp = (uint64_t*)(t->stack + stack_size);
 
@@ -23,10 +30,5 @@ void xTaskCreate(void (*task)(void), uint32_t stack_size, int priority)
 
 	t->regs[0] = (uint64_t)task; //ra
 	t->regs[1] = (uint64_t)sp; //sp
-
-	t->entry = task;
-	t->priority = (uint64_t)priority;
-
-	task_count++;
 }
 
