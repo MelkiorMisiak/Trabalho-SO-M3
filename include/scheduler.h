@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SCHEDULER_H
+#define SCHEDULER_H 1
 
 #include <stdint.h>
 
@@ -11,3 +12,5 @@ void yield(void);
 void schedule_from_trap(uint64_t *frame);
 
 int scheduler_current_task(void);
+
+#endif

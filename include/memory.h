@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MEMORY_H
+#define MEMORY_H 1
+
 #include <stdint.h>
 
 /* Inicializa o heap */
@@ -13,3 +15,5 @@ void kfree(void *ptr);
 /* Informações */
 uint64_t memory_used(void);
 uint64_t memory_free(void);
+
+#endif

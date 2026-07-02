@@ -1,7 +1,11 @@
-#pragma once
+#ifndef TIMER_H
+#define TIMER_H 1
+
 #include <stdint.h>
 
 void timer_init(uint64_t interval);
 void timer_next(void);
 
 
+
+#endif
