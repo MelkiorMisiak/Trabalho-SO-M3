@@ -41,9 +41,12 @@ extern struct superblock_t superblock;
 
 #define MAX_FILES 8
 extern struct dir_entry_t directory[MAX_FILES];
+static uint32_t directory_entries = 0;
 
 int fs_init(void);
 int cluster_alloc(void);
+
+uint32_t clusters_used(uint16_t cluster);
 
 int fs_create(const char *name);
 int fs_open(const char *name);

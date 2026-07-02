@@ -3,6 +3,10 @@
 
 #include <stdint.h>
 
+#ifndef NULL
+#define NULL ((void*)0)
+#endif
+
 void *memcpy(void *dest, const void *src, uint64_t n);
 void *memset(void *s, int c, uint64_t n);
 

@@ -1,7 +1,7 @@
 build/
 bin/
 .cache/
-trabalho-M2-EC.pdf
-trabalho-M3-EC.pdf
 kernel.elf
+*.pdf
+*.typ
 
