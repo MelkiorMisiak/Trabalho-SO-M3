@@ -10,7 +10,7 @@ CFLAGS = -march=rv64gc -mabi=lp64 \
 
 OBJS = build/start.o build/trap_entry.o build/context.o \
        build/main.o build/task.o build/scheduler.o build/uart.o build/string.o build/memory.o \
-			 build/trap.o build/timer.o
+			 build/trap.o build/timer.o build/block.o
 
 all:
 	$(CROSS)gcc $(CFLAGS) -c boot/start.S -o build/start.o
@@ -26,6 +26,7 @@ all:
 
 	$(CROSS)gcc $(CFLAGS) -c kernel/trap.c -o build/trap.o
 	$(CROSS)gcc $(CFLAGS) -c kernel/timer.c -o build/timer.o
+	$(CROSS)gcc $(CFLAGS) -c drivers/block.c -o build/block.o
 
 	$(CROSS)ld -T linker.ld $(OBJS) -o kernel.elf
 
