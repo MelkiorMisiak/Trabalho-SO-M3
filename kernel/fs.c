@@ -84,7 +84,7 @@ int fs_open(const char *name)
 {
 	for(uint32_t i = 0; i < MAX_FILES; i++) {
 		if(directory[i].name[0] != '\0' && !strcmp(name, directory[i].name)) {
-			return i; // Return file descriptor (index)
+			return i;
 		}
 	}
 	return -1;
@@ -113,8 +113,8 @@ int fs_write(int fd, const void *buffer, uint32_t size)
         	if (bytes_written < size) {
             		if (fat[current_cluster] == FAT_EOF) {
                 	int next = cluster_alloc();
-                	if (next == -1) break; // Disk full
-                
+                	if (next == -1) 
+				break; 
                 	fat[current_cluster] = next;
                 	fat[next] = FAT_EOF;
             		}
