@@ -53,35 +53,30 @@ uint32_t clusters_used(uint16_t cluster)
 
 int fs_create(const char *name)
 {
-    // Check if maximum file limit is reached
-    if (directory_entries >= MAX_FILES)
-        return -1;
+	if (directory_entries >= MAX_FILES)
+		return -1;
 
-    // Check if file already exists
 	for(uint32_t i = 0; i < MAX_FILES; i++) {
 		if(directory[i].name[0] != '\0' && !strcmp(name, directory[i].name))
 			return -1; 
 	}
 
-    // Find a free cluster
 	int cluster = cluster_alloc();
 	if(cluster == -1)
-		return -1; // No memory
+		return -1; 
 
-    // Find a free directory entry and populate it
-    for(uint32_t i = 0; i < MAX_FILES; i++) {
-        if(directory[i].name[0] == '\0') {
-            strcpy(directory[i].name, name);
-            directory[i].name[MAX_NAME_SIZE - 1] = '\0';
-            directory[i].first_cluster = cluster;
-            directory[i].size = 0;
-            
-            fat[cluster] = FAT_EOF; // Mark cluster as end of file
-            directory_entries++;
-            return 0;
-        }
-    }
-
+	for(uint32_t i = 0; i < MAX_FILES; i++) {
+		if(directory[i].name[0] == '\0') {
+			    strcpy(directory[i].name, name);
+			    directory[i].name[MAX_NAME_SIZE - 1] = '\0';
+			    directory[i].first_cluster = cluster;
+			    directory[i].size = 0;
+			    
+			    fat[cluster] = FAT_EOF;
+			    directory_entries++;
+			    return 0;
+		}
+	}
 	return -1;
 }
 
