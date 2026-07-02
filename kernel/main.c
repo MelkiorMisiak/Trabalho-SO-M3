@@ -4,6 +4,7 @@
 #include "uart.h"
 #include "timer.h"
 #include "trap.h"
+#include "fs.h"
 
 extern void uart_print(const char*);
 extern void trap_entry(void);
@@ -43,6 +44,8 @@ void kernel_main()
 	// 	;
 
 	uart_print("\n=== Kernel ===\n");
+
+	fs_init();
 
 
 }

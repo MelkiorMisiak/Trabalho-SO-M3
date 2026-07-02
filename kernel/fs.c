@@ -1,28 +1,40 @@
 #include "fs.h" 
 
+uint16_t fat[NUM_CLUSTERS];
+struct superblock_t superblock;
+
+struct dir_entry_t directory[MAX_FILES];
+
+
+
 int fs_init(void)
 {
-	/*
-	* TODO:
-	* Inicializar superbloco.
-	*/
-	/*
-	* TODO:
-	* Inicializar FAT.
-	*/
-	/*
-	* TODO:
-	* Inicializar diretrio.
-	*/
+	superblock.magic = SIMPLEFAT_MAGIC;
+	superblock.cluster_size = CLUSTER_SIZE;
+	superblock.total_clusters = TOTAL_CLUSTERS;
+	superblock.total_blocks = TOTAL_BLOCKS; //WARN: Potentially this value is wrong
+
+	for(uint32_t i = 0; i < NUM_CLUSTERS; i++) {
+		fat[i] = FAT_FREE;
+	}
+
+	for(uint32_t i = 0; i < MAX_FILES; i++) {
+		directory[i].first_cluster = 0x0000;
+		directory[i].name[0] = '\0';
+		directory[i].size = 0;
+	}
+
 	return 0;
 }
 
 int cluster_alloc(void)
 {
-	/*
-	* TODO:
-	* Procurar FAT_FREE.
-	*/
+	for(uint32_t i = 0; i < NUM_CLUSTERS; i++)
+	{
+		if(!fat[i])
+			return i;
+	}
+
 	return -1;
 }
 
@@ -40,6 +52,7 @@ int fs_create(const char *name)
 	 * TODO:
 	 * Atualiza Diretório
 	 */
+	
 
 	return 0;
 }

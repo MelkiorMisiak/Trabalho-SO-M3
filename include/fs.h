@@ -1,12 +1,21 @@
 #ifndef FS_H
 #define FS_H 1
 
-#include <stdint.h>
+#include "block.h"
 
-#define SIMPLEFAT_MAGIC 0x53464154
+#include <stdint.h>
 
 #define FAT_FREE 0x0000
 #define FAT_EOF 0xFFFF
+
+#define SIMPLEFAT_MAGIC 0x53464154
+#define CLUSTER_SIZE 512
+#define TOTAL_CLUSTERS 1024
+#define TOTAL_BLOCKS DISK_SIZE/BLOCK_SIZE
+
+#define NUM_CLUSTERS DISK_SIZE/CLUSTER_SIZE
+
+#define MAX_NAME_SIZE 32
 
 struct superblock_t {
 	uint32_t magic;
@@ -19,12 +28,19 @@ struct superblock_t {
 };
 
 struct dir_entry_t {
-	char name[32];
+	char name[MAX_NAME_SIZE];
 
 	uint32_t size;
 
 	uint16_t first_cluster;
 };
+
+
+extern uint16_t fat[NUM_CLUSTERS];
+extern struct superblock_t superblock;
+
+#define MAX_FILES 8
+extern struct dir_entry_t directory[MAX_FILES];
 
 int fs_init(void);
 int cluster_alloc(void);
